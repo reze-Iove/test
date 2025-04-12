@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+    div {
+        text-align: center;
+        margin: 10px;
+    }
+    #CDimg img {
+        border-radius: 50%;
+        animation: rotate 10 s linear infinite; /* 添加旋转动画 */
+    }
+    img {
+        border: 0px;
+    }
+    button {
+        background: transparent;
+        border: 0;
+        outline: 0;
+    }
+
+    /* 定义旋转动画 */
+    @keyframes rotate {
+        from {
+            transform: rotate(0deg); /* 起始角度为0度 */
+        }
+        to {
+            transform: rotate(360deg); /* 最终角度为360度，可以根据需要调整 */
+        }
+    }
+</style>
+</head>
+
+<body>
+<audio id="audio" src="音乐播放器/2dbf_91c2_57f8_0c3e756ce349077d331de94f8137f545.mp3" preload></audio>
+<div id="CDimg"><img src="音乐播放器/349c93806a2876f3417a3203844db52.jpg"  width="371" height="371" alt=""/></div>
+<div>
+    <input id="volume" type="range" min="0" max="1" step="0.1" onChange="setVolume()" />
+</div>
+<div>
+    当前正在播放：<span id="title">伝える勇気があったなら</span>
+</div>
+<div>
+    <button onClick="lastMusic()"><img src="音乐播放器/image/previous.png" width="50" height="50" alt="" /></button>
+    <button id="toggleBtn" onClick="toggleMusic()"><img src="音乐播放器/image/play.png" width="50" height="50" alt="" /></button>
+    <button onClick="nextMusic()"><img src="音乐播放器/image/next.png" width="50" height="50" alt="" /></button>
+</div>
+
+<script>
+    var music = document.getElementById("audio");
+    var volume = document.getElementById("volume");
+    var toggleBtn = document.getElementById("toggleBtn");
+    var title = document.getElementById("title");
+    var list = new Array("音乐播放器\\2dbf_91c2_57f8_0c3e756ce349077d331de94f8137f545.mp3", "音乐播放器\\131a_121a_8253_12c8574730a5f2d087e62ff332aa1a19.mp3", "音乐播放器\\c821_32a4_8c04_aaea194dc6ce30593bb14c1311f61416.mp3");
+    var titleList = new Array("伝える勇気があったなら", "二次元好きで悪いですか?", "MIZUKI & SUBARU");
+    var i = 0;
+
+    function toggleMusic() {
+        if (music.paused) {
+            music.play();
+            toggleBtn.innerHTML = '<img src="音乐播放器/image/pause.png" width="50" height="50" />';
+        } else {
+            music.pause();
+            toggleBtn.innerHTML = '<img src="音乐播放器/image/play.png" width="50" height="50" />';
+        }
+    }
+
+    function setVolume() {
+        music.volume = volume.value;
+    }
+
+    function nextMusic() {
+        if (i == list.length - 1) i = 0;
+        else i++;
+        music.pause();
+        music.src = list[i];
+        title.innerHTML = titleList[i];
+        music.play();
+    }
+
+    function lastMusic() {
+        if (i == 0) i = list.length - 1;
+        else i--;
+        music.pause();
+        music.src = list[i];
+        title.innerHTML = titleList[i];
+        music.play();
+    }
+</script>
+</body>
+</html>
